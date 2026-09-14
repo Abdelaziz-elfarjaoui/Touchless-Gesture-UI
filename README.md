@@ -44,26 +44,7 @@ Arduino Nano
    └── Speaker / Buzzer
 ```
 
----
 
-## ✨ Features
-
-- 🖐️ Touchless control using the index finger
-- 📷 Real-time webcam tracking
-- 🤖 MediaPipe hand landmark detection
-- 🖥️ OpenCV graphical interface
-- 🔐 Touchless login system
-- 💡 Red / Blue / White LED management
-- ⚙️ DC motor speed control
-- 🔊 Music playback through a speaker/buzzer
-- 📺 OLED I2C display
-- 📊 System status and monitoring
-- 📝 Event logging
-- 🛑 Motor safety stop when the hand is lost
-- 🔄 Automatic Arduino serial reconnection
-- ⌨️ Optional physical keyboard support on the login page
-
----
 
 ## 🔐 Login Configuration
 
@@ -278,44 +259,7 @@ This provides an automatic motor stop when the user's hand is no longer detected
 
 ---
 
-## 📁 Project Structure
 
-```text
-Touchless-Gesture-UI/
-│
-├── Arduino/
-│   └── Touchless_Gesture_UI.ino
-│
-├── control/
-│   ├── __init__.py
-│   ├── leds.py
-│   └── motor.py
-│
-├── hardware/
-│   ├── __init__.py
-│   └── arduino.py
-│
-├── ui/
-│   └── __init__.py
-│
-├── vision/
-│   ├── __init__.py
-│   └── hand_tracker.py
-│
-├── config.py
-├── logger.py
-├── main.py
-├── main_legacy.py
-├── hand_landmarker.task
-├── system_architecture.png
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
-
-> `system.log` is generated during execution and is excluded from Git through `.gitignore`.
-
----
 
 ## 🧰 Technologies
 
@@ -372,84 +316,6 @@ python .\main.py
 
 ---
 
-## 📡 Serial Communication
-
-### Commands sent by Python
-
-```text
-RED:ON
-RED:OFF
-
-BLUE:ON
-BLUE:OFF
-
-WHITE:ON
-WHITE:OFF
-
-SPEED:50
-
-PLAY
-STOP_MUSIC
-NEXT
-
-LOGIN_PAGE
-LED_PAGE
-MOTOR_PAGE
-MUSIC_PAGE
-SETTINGS_PAGE
-STATUS_PAGE
-```
-
-### States sent by Arduino
-
-```text
-STATE:RED:ON
-STATE:BLUE:OFF
-STATE:WHITE:OFF
-STATE:SPEED:50
-STATE:MUSIC:PLAYING
-STATE:ONLINE:1
-```
-
----
-
-## 📝 Event Logging
-
-The application generates:
-
-```text
-system.log
-```
-
-Example events:
-
-```text
-LOGIN SUCCESS
-Opened LED Management
-Motor speed -> 50%
-Music -> PLAY
-SAFETY STOP - hand lost
-```
-
-The log file is intentionally excluded from GitHub.
-
----
-
-## 🚀 Future Improvements
-
-- More hand gestures
-- Gesture-based navigation
-- Multiple music tracks
-- Volume control
-- Advanced Arduino settings
-- Wireless communication
-- ESP32 support
-- Web/mobile dashboard
-- Improved UI animations
-- Hardware enclosure
-- Machine-learning based gesture classification
-
----
 
 ## 👨‍💻 Author
 
