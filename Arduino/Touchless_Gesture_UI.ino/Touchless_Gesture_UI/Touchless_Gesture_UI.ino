@@ -50,6 +50,10 @@ int motorSpeed = 0;
 // =====================================================
 String serialCommand = "";
 
+// Login data received from Python
+String loginUsername = "";
+String loginPassword = "";
+
 // =====================================================
 // MOTOR
 // =====================================================
@@ -289,17 +293,17 @@ void drawLoginPage() {
       "SYSTEM READY"
     );
 
-    oled.drawStr(
-      10,
-      39,
-      "USER: READY"
-    );
+    // USERNAME - mirror what Python sends
+    oled.setCursor(10, 39);
+    oled.print("USER: ");
+    oled.print(loginUsername);
 
-    oled.drawStr(
-      10,
-      53,
-      "PASS: ****"
-    );
+    // PASSWORD - display masked characters
+    oled.setCursor(10, 53);
+    oled.print("PASS: ");
+    for (unsigned int i = 0; i < loginPassword.length(); i++) {
+      oled.print('*');
+    }
 
   } while (
     oled.nextPage()
@@ -742,6 +746,8 @@ void processCommand(
   ) {
 
     currentPage = PAGE_LOGIN;
+    loginUsername = "";
+    loginPassword = "";
 
     updateOLED();
 
@@ -833,6 +839,26 @@ void processCommand(
 
     updateOLED();
 
+    return;
+  }
+
+  // ---------------------------------------------------
+  // LOGIN DATA FROM PYTHON
+  // ---------------------------------------------------
+
+  if (cmd.startsWith("LOGIN_USER:")) {
+
+    loginUsername = cmd.substring(11);
+    currentPage = PAGE_LOGIN;
+    updateOLED();
+    return;
+  }
+
+  if (cmd.startsWith("LOGIN_PASS:")) {
+
+    loginPassword = cmd.substring(11);
+    currentPage = PAGE_LOGIN;
+    updateOLED();
     return;
   }
 

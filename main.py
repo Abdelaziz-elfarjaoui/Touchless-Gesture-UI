@@ -1801,11 +1801,27 @@ keyboard_consumed = False
 # TIMING
 # =========================================================
 
-# Menu / Status / Motor BACK
-NORMAL_HOVER_TIME = 0.30
+# =========================================================
+# PAGE-SPECIFIC HOVER TIMING
+# =========================================================
 
-# LED click
-LED_HOVER_TIME = 0.30
+# Main Menu: all buttons = 1 second
+MENU_HOVER_TIME = 1.0
+
+# LED Management: RED / BLUE / WHITE / BACK = 0.5 second
+LED_HOVER_TIME = 0.5
+
+# Motor Speed: BACK = 0.5 second
+MOTOR_BACK_HOVER_TIME = 0.5
+
+# Music: PLAY / STOP / NEXT / BACK = 0.5 second
+MUSIC_HOVER_TIME = 0.5
+
+# Settings: SYSTEM STATUS / BACK = 1 second
+SETTINGS_HOVER_TIME = 1.0
+
+# System Status: BACK = 0.5 second
+STATUS_HOVER_TIME = 0.5
 
 # Login keys
 KEY_HOVER_TIME = 0.5
@@ -2150,19 +2166,21 @@ with HandLandmarker.create_from_options(
                 # Same item
                 else:
 
-                    if (
-                        not item_consumed
-                        and
-                        time.time()
-                        - hover_start_time
-                        >= NORMAL_HOVER_TIME
-                    ):
+                    if not item_consumed:
 
-                        process_menu_item(
-                            item
-                        )
+                        required_hover_time = MENU_HOVER_TIME
 
-                        item_consumed = True
+                        if (
+                            time.time()
+                            - hover_start_time
+                            >= required_hover_time
+                        ):
+
+                            process_menu_item(
+                                item
+                            )
+
+                            item_consumed = True
 
         # =================================================
         # LED MANAGEMENT
@@ -2292,7 +2310,7 @@ with HandLandmarker.create_from_options(
                         and
                         time.time()
                         - hover_start_time
-                        >= NORMAL_HOVER_TIME
+                        >= MOTOR_BACK_HOVER_TIME
                     ):
 
                         process_motor_item(
@@ -2336,7 +2354,7 @@ with HandLandmarker.create_from_options(
                     item_consumed = False
                 elif (
                     not item_consumed
-                    and time.time() - hover_start_time >= NORMAL_HOVER_TIME
+                    and time.time() - hover_start_time >= MUSIC_HOVER_TIME
                 ):
                     process_music_item(item)
                     item_consumed = True
@@ -2364,7 +2382,7 @@ with HandLandmarker.create_from_options(
                     item_consumed = False
                 elif (
                     not item_consumed
-                    and time.time() - hover_start_time >= NORMAL_HOVER_TIME
+                    and time.time() - hover_start_time >= SETTINGS_HOVER_TIME
                 ):
                     process_settings_item(item)
                     item_consumed = True
@@ -2419,7 +2437,7 @@ with HandLandmarker.create_from_options(
                         and
                         time.time()
                         - hover_start_time
-                        >= NORMAL_HOVER_TIME
+                        >= STATUS_HOVER_TIME
                     ):
 
                         process_status_item(
